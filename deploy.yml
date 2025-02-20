@@ -12,7 +12,7 @@
 
     - name: Pull Docker Image
       docker_image:
-        name: "iiitb/calculator"
+        name: "girish445g/calculator"
         source: pull
       register: docker_pull_result
 
@@ -26,4 +26,4 @@
         state: started
 
     - name: Running container
-      shell: docker run -it -d --name calculator iiitb/calculator /bin/bash
+      shell: docker run -it -d --name calculator girish445g/calculator /bin/bash
