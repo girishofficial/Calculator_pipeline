@@ -1,17 +1,17 @@
 ---
 - name: Pull Docker Image from Docker Hub
   hosts: localhost
-  remote_user: false
-  become: false
+  connection: local
+  become: true
   tasks:
 
-    - name: Install Python Docker SDK
-      pip:
-        name: docker
-        executable: pip3
+    - name: Install Python Docker SDK using apt
+      apt:
+        name: python3-docker
+        state: present
 
     - name: Pull Docker Image
-      docker_image:
+      community.docker.docker_image:
         name: "girish445g/calculator"
         source: pull
       register: docker_pull_result
@@ -19,7 +19,7 @@
     - name: Display Docker Pull Result
       debug:
         var: docker_pull_result
-        
+
     - name: Start Docker service
       service:
         name: docker
