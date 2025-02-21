@@ -41,12 +41,14 @@ pipeline {
      stage('Run Ansible Playbook') { 
         steps {
             script {
-              withEnv(["ANSIBLE_HOST_KEY_CHECKING=False"]) {   
-                ansiblePlaybook(
-                    playbook: 'deploy.yml',
-                    inventory: 'inventory'
-                )
-            }
+               withCredentials([
+                    string(credentialsId: 'LOCALPASS', variable: 'ANSIBLE_BECOME_PASS'),
+                    string(credentialsId: 'LOCALPASS', variable: 'ANSIBLE_SSH_PASS')
+                ]) {
+                    sh '''
+                    ansible-playbook -i inventory.ini deploy.yml --extra-vars "ansible_become_pass=$ANSIBLE_BECOME_PASS, ansible_ssh_pass=$ANSIBLE_SSH_PASS"
+                    '''
+                }
         }
     }
  }
