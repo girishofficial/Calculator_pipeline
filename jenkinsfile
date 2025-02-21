@@ -46,7 +46,7 @@ pipeline {
                     string(credentialsId: 'LOCALPASS', variable: 'ANSIBLE_SSH_PASS')
                 ]) {
                     sh '''
-                    ansible-playbook -i inventory.ini deploy.yml --extra-vars "ansible_become_pass=$ANSIBLE_BECOME_PASS, ansible_ssh_pass=$ANSIBLE_SSH_PASS"
+                    ansible-playbook -i inventory.ini deploy.yml --extra-vars "ansible_become_pass=${ANSIBLE_BECOME_PASS} ansible_ssh_pass=${ANSIBLE_SSH_PASS}"
                     '''
                 }
         }
