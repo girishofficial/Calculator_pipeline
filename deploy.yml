@@ -5,11 +5,6 @@
   become: true
   tasks:
 
-    - name: Install Python Docker SDK using apt
-      apt:
-        name: python3-docker
-        state: present
-
     - name: Pull Docker Image
       community.docker.docker_image:
         name: "girish445g/calculator"
