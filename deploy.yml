@@ -2,7 +2,7 @@
 - name: Pull Docker Image from Docker Hub
   hosts: localhost
   connection: local
-  become: true
+  become: false
   tasks:
 
     - name: Pull Docker Image
