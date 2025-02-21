@@ -1,8 +1,8 @@
 pipeline {
     agent any
     triggers { 
-      githubPush() 
-   }
+        githubPush() 
+    }
     environment {
         DOCKER_IMAGE_NAME = 'calculator'
         GITHUB_REPO_URL = 'https://github.com/girishofficial/Calculator_pipeline.git'
@@ -29,30 +29,30 @@ pipeline {
 
         stage('Push Docker Images') {
             steps {
-                script{
+                script {
                     withCredentials([string(credentialsId: 'DockerHubCred', variable: 'DOCKER_HUB_PASSWORD')]) {
-                    sh 'docker tag calculator girish445g/calculator:latest'
-                    sh 'docker push girish445g/calculator'
+                        sh 'docker tag calculator girish445g/calculator:latest'
+                        sh 'docker push girish445g/calculator'
                     }
-                 }
+                }
             }
         }
 
-     stage('Run Ansible Playbook') { 
-        steps {
-            script {
-               withCredentials([
-                    string(credentialsId: 'LOCALPASS', variable: 'ANSIBLE_BECOME_PASS'),
-                    string(credentialsId: 'LOCALPASS', variable: 'ANSIBLE_SSH_PASS')
-                ]) {
-                    sh '''
-                    ansible-playbook -i inventory.ini deploy.yml --extra-vars "ansible_become_pass=${ANSIBLE_BECOME_PASS} ansible_ssh_pass=${ANSIBLE_SSH_PASS}"
-                    '''
+        stage('Run Ansible Playbook') { 
+            steps {
+                script {
+                    withCredentials([
+                        string(credentialsId: 'LOCALPASS', variable: 'ANSIBLE_BECOME_PASS'),
+                        string(credentialsId: 'LOCALPASS', variable: 'ANSIBLE_SSH_PASS')
+                    ]) {
+                        sh '''
+                        ansible-playbook -i inventory.ini deploy.yml --extra-vars "ansible_become_pass=${ANSIBLE_BECOME_PASS} ansible_ssh_pass=${ANSIBLE_SSH_PASS}"
+                        '''
+                    }
                 }
+            }
         }
     }
- }
-}
- post {}
-       } 
 
+    post {}
+}
