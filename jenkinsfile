@@ -53,20 +53,6 @@ pipeline {
     }
  }
 }
- post {
-        success {
-            mail to: 'girish445g@gmail.com',
-                 subject: "Application Deployment SUCCESS: Build ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "The build was successful!"
-        }
-        failure {
-            mail to: 'girish445g@gmail.com',
-                 subject: "Application Deployment FAILURE: Build ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "The build failed."
-        }
-        always {
-            cleanWs()
-        }
-      }
-    }
+ post {}
+        
 
