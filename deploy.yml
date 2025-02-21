@@ -1,16 +1,14 @@
 ---
 - name: Pull Docker Image from Docker Hub
   hosts: localhost
-  connection: local
-  become: false
+  remote_user: girish
+  become: true
   tasks:
     - name: Pull Docker Image
       community.docker.docker_image:
         name: "girish445g/calculator"
         source: pull
-      environment:
-        DOCKER_HOST: "unix:///var/run/docker.sock"
-      register: docker_pull_result
+        register: docker_pull_result
 
     - name: Display Docker Pull Result
       debug:
