@@ -9,7 +9,8 @@
       community.docker.docker_image:
         name: "girish445g/calculator"
         source: pull
-      register: docker_pull_result
+      enviroment:
+        DOCKER_HOST: "unix:///var/run/docker.sock"
 
     - name: Display Docker Pull Result
       debug:
