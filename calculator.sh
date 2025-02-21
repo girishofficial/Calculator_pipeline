@@ -1,26 +1,38 @@
 #!/bin/bash
-# A simple calculator shell program
+echo "Simple Calculator"
+echo "Do you want to perform a calculation? (yes/no)"
+read choice
+if [ "$choice" != "yes" ]; then
+    echo "Exiting calculator..."
+    exit 0
+fi
 
-echo "1. Addition"
-echo "2. Subtraction"
-echo "3. Multiplication"
-echo "4. Division"
-
-echo -n "Enter First Number: "
+echo -n  "Enter first number:"
 read a
-echo -n "Enter Second Number: "
+echo -n "Enter second number:"
 read b
-echo -n "Enter the Choice: "
-read ch
+echo -n "Enter operation (+, -, *, /):"
+read op
 
-case $ch in
-   1) res=`expr $a + $b`
-   ;;
-   2) res=`expr $a - $b`
-   ;;
-   3) res=`expr $a \* $b`
-   ;;
-   4) res=`expr $a / $b`
-   ;;
+case $op in
+  +) result=$((a + b));;
+  -) result=$((a - b));;
+  \*) result=$((a * b));;
+  /) 
+    if [ "$b" -eq 0 ]; then
+      echo "Error: Division by zero is not allowed."
+      exit 1
+    else
+      result=$((a / b))
+    fi
+    ;;
+  *) 
+    echo "Invalid operation"
+    exit 1
+    ;;
 esac
-echo "Result : $res"
+
+echo "Result: $result"
+echo "Exiting calculator..."
+exit 0
+
