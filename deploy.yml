@@ -2,7 +2,7 @@
 - name: Pull Docker Image from Docker Hub
   hosts: localhost
   connection: local
-  become: false
+  become: true
   tasks:
 
     - name: Install Python Docker SDK using apt
