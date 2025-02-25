@@ -1,0 +1,23 @@
+- name: Deploy Calculator Container Using Docker CLI
+  hosts: localhost
+  become: yes
+ # gather_facts: no
+  tasks:
+    - name: Pull the latest Docker image from Docker Hub
+      shell: docker pull girish445g/calculator
+      register: pull_result
+      changed_when: "'Downloaded newer image' in pull_result.stdout or 'Pull complete' in pull_result.stdout"
+
+    - name: Display Pull Result
+      debug:
+        var: pull_result.stdout
+
+    - name: Run the Docker container
+      shell: docker run -it -d --name devcalculator_container girish445g/calculator /bin/bash
+      register: run_result
+      changed_when: "'Error' not in run_result.stdout"
+
+    - name: Display Container Run Result
+      debug:
+        var: run_result.stdout
+
