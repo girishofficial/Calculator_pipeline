@@ -12,8 +12,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    // Checkout the 'Scientific_Calculator_pipeline' branch
-                    git branch: 'Scientific_Calculator_pipeline', url: "${GITHUB_REPO_URL}"
+                    // Checkout the main branch since Scientific_Calculator_pipeline is a folder
+                    git url: "${GITHUB_REPO_URL}"
                 }
             }
         }
@@ -21,8 +21,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build Docker image
-                    docker.build("${DOCKER_IMAGE_NAME}", '.')
+                    // Build Docker image from the Scientific_Calculator_pipeline folder
+                    docker.build("${DOCKER_IMAGE_NAME}", './Scientific_Calculator_pipeline')
                 }
             }
         }
