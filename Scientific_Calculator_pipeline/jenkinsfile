@@ -12,8 +12,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    // Checkout the code from the GitHub repository
-                    git branch: 'main', url: "${GITHUB_REPO_URL}"
+                    // Checkout the 'Scientific_Calculator_pipeline' branch
+                    git branch: 'Scientific_Calculator_pipeline', url: "${GITHUB_REPO_URL}"
                 }
             }
         }
