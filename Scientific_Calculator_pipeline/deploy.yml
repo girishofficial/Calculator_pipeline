@@ -1,5 +1,6 @@
 - name: Deploy Calculator Container Using Docker CLI
   hosts: localhost
+  remote_user: girish
   become: yes
  # gather_facts: no
   tasks:
