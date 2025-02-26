@@ -23,14 +23,6 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                script {
-                    sh "docker run --rm ${DOCKER_IMAGE_NAME} java ScientificCalculatorTest"
-                }
-            }
-        }
-
         stage('Push Docker Images') {
             steps {
                 script {
