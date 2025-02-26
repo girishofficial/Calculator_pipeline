@@ -23,6 +23,14 @@ pipeline {
             }
         }
 
+        stage('Run Tests') {
+            steps {
+                script {
+                    sh 'docker run --rm ${DOCKER_IMAGE_NAME} java -jar junit.jar --select-class ScientificCalculatorTest'
+                }
+            }
+        }
+
         stage('Push Docker Images') {
             steps {
                 script {
