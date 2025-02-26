@@ -19,7 +19,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t ${DOCKER_IMAGE_NAME} Scientific_Calculator_pipelin/'
+                sh 'docker build -t ${DOCKER_IMAGE_NAME} Scientific_Calculator_pipeline/'
             }
         }
 
