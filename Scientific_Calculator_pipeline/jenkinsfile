@@ -24,13 +24,14 @@ pipeline {
                     sh 'wget -q https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.9.2/junit-platform-console-standalone-1.9.2.jar -O junit.jar'
                     
                     // Compile Java classes with JUnit
-                    sh 'javac -cp .:junit.jar Scientific_Calculator_pipeline/*.java'
+                    sh 'javac -cp "junit.jar:." Scientific_Calculator_pipeline/*.java'
 
                     // Run JUnit tests
-                    sh 'java -cp .:junit.jar org.junit.platform.console.ConsoleLauncher --select-class Scientific_Calculator_pipeline.ScientificCalculatorTest'
+                    sh 'java -cp "junit.jar:." org.junit.platform.console.ConsoleLauncher --scan-classpath'
                 }
             }
         }
+
 
         stage('Build Docker Image') {
             steps {
