@@ -27,7 +27,7 @@ pipeline {
                     sh 'javac -cp .:junit.jar Scientific_Calculator_pipeline/ScientificCalculator.java Scientific_Calculator_pipeline/ScientificCalculatorTest.java'
 
                     // Run JUnit tests
-                    sh 'java -jar junit.jar --select-class Scientific_Calculator_pipeline.ScientificCalculatorTest'
+                    sh 'java -jar junit.jar --select-class ScientificCalculatorTest'
                 }
             }
         }
