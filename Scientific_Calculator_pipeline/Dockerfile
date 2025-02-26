@@ -2,6 +2,9 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
+# Install wget
+RUN apt-get update && apt-get install -y wget
+
 # Copy source and test files
 COPY ScientificCalculator.java .
 COPY ScientificCalculatorTest.java .
