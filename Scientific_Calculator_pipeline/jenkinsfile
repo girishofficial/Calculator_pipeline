@@ -24,10 +24,10 @@ pipeline {
                     sh 'wget -q https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.9.2/junit-platform-console-standalone-1.9.2.jar -O junit.jar'
                     
                     // Compile Java classes with JUnit
-                    sh 'javac -cp .:junit.jar ScientificCalculator.java ScientificCalculatorTest.java'
+                    sh 'javac -cp .:junit.jar Scientific_Calculator_pipeline/ScientificCalculator.java Scientific_Calculator_pipeline/ScientificCalculatorTest.java'
 
                     // Run JUnit tests
-                    sh 'java -jar junit.jar --select-class ScientificCalculatorTest'
+                    sh 'java -jar junit.jar --select-class Scientific_Calculator_pipeline/ScientificCalculatorTest'
                 }
             }
         }
