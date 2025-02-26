@@ -5,6 +5,8 @@ pipeline {
     }
     environment {
         DOCKER_IMAGE_NAME = 'calculator'
+        DOCKER_HUB_USER = 'girish445g'
+        DOCKER_HUB_REPO = 'calculator'
         GITHUB_REPO_URL = 'https://github.com/girishofficial/Calculator_pipeline.git'
     }
 
@@ -12,7 +14,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    // Checkout the code from the GitHub repository
                     git branch: 'main', url: "${GITHUB_REPO_URL}"
                 }
             }
@@ -21,18 +22,26 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build Docker image
-                    docker.build("${DOCKER_IMAGE_NAME}", './Scientific_Calculator_pipeline')
+                    docker.build("${DOCKER_IMAGE_NAME}", '.')
                 }
             }
         }
 
-        stage('Push Docker Images') {
+        stage('Run Tests') {
+            steps {
+                script {
+                    sh "docker run --rm ${DOCKER_IMAGE_NAME} java ScientificCalculatorTest"
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'DockerHubCred', variable: 'DOCKER_HUB_PASSWORD')]) {
-                        sh 'docker tag calculator girish445g/calculator:latest'
-                        sh 'docker push girish445g/calculator'
+                        sh "docker login -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_PASSWORD}"
+                        sh "docker tag ${DOCKER_IMAGE_NAME} ${DOCKER_HUB_USER}/${DOCKER_HUB_REPO}:latest"
+                        sh "docker push ${DOCKER_HUB_USER}/${DOCKER_HUB_REPO}:latest"
                     }
                 }
             }
